@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/mypage")
 public class MemberMyPageController { 
-	// 컨트롤러 만들 때 기본이 되는 페이지 만드는 것도 좋음
+	// 컨트롤러 만들 때 기본이 되는 페이지를 만드는 것이 좋다.
 	
 	@RequestMapping("/mypage1") // /op/mypage/mypage1
 	public String myPage1() {

@@ -29,7 +29,7 @@
 		<h2 class="content_title">회원 정보 수정 실패</h2>
 		<hr>
 		<div class="content">
-			<h1>요청하신 인덱스의 회원 정보가 존재하지 않습니다. <br> 다시 확인 후 시도해주세요.</h1>
+			<h1>요청하신 회원 정보가 존재하지 않습니다. <br>다시 확인 후 시도해주세요.</h1>
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>

@@ -2,7 +2,7 @@ package com.aia.op.member.domain;
 
 public class SearchParam {
 	
-	private int p; // 페이징 번호는 1보다 작으면 안된다
+	private int p; // 페이징 번호는 1보다 작으면 안됨
 	private String searchType;
 	private String keyword;
 	

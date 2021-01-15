@@ -25,8 +25,8 @@ public class MemberEditController {
 			@RequestParam("idx") int idx,
 			Model model
 			) {
-		// Service -> MemberDao -> mapper(Member 객체 반환)
-		// 반환_ mapper -> MemberDao -> Service
+		// Service -> MemberDao -> mapper (Member 객체 반환)
+		// 반환  mapper -> MemberDao -> Service
 		model.addAttribute("member", editService.getMember(idx));
 		
 		return "/member/editForm";
@@ -43,7 +43,7 @@ public class MemberEditController {
 		
 		// System.out.println(editRequest);
 		
-		// 결과 edit 넘겨주고
+		// 결과 edit 넘김
 		model.addAttribute("result", editService.editMember(editRequest, request));  
 		
 		return "member/edit";

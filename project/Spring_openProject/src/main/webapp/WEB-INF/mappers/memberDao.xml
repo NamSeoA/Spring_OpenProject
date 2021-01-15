@@ -72,9 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				</if>
 			</if>
 		</where>
-		
 		limit #{index}, #{count}
-		
 	</select>
 	
 	<select id="selectSearchMemberCount" 
@@ -115,8 +113,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="searchType == 'both'">
 			where membername like	concat('%',#{keyword},'%') or memberid like	concat('%',#{keyword},'%')
 		</if> -->
-		
-	
 	</select>
 
 	<sql id="searchId">
@@ -142,9 +138,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update member set membername=#{membername}, password=#{password}, memberphoto=#{memberphoto}    
 		where idx=#{idx}
 	</update>
-
-
-
 
 
 </mapper>
