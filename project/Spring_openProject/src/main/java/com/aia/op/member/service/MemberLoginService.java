@@ -35,8 +35,10 @@ public class MemberLoginService {
 		// 1. Dao -> id, pw 데이터로 검색 -> 존재하면 로그인 처리 / 존재하지 않으면 넘어감
 		Member member = dao.selectLogin(id, pw);
 		System.out.println(member);
-		
-		if(member != null) {
+	
+	  if(member != null) {
+			
+		if(member.getVerify() == 'Y') {
 			// 현재 세션의 속성에 LoginInfo 인스턴스를 저장
 			// session 있으면 가져오고 없으면 새로 만들기
 			request.getSession().setAttribute("loginInfo", member.toLoginInfo());  
@@ -55,8 +57,11 @@ public class MemberLoginService {
 				c.setMaxAge(0); 
 				response.addCookie(c);
 			}
+		} else {
+			loginCheck = true;
+			request.setAttribute("msg", "인증되지 않은 이메일입니다. 인증 후 로그인 해주세요. ");
 		}
-		
-		return loginCheck;
-	}
+	} 
+	return loginCheck;
+ }
 }
