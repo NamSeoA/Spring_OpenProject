@@ -36,7 +36,7 @@ public class MemberRegService {
 		String newFileName = null;
 		
 		// 있으면 처리
-		if(!regRequest.getUserPhoto().isEmpty()) {
+		if(regRequest.getUserPhoto() != null && !regRequest.getUserPhoto().isEmpty()) {
 			// 웹 경로
 			String uploadPath ="/fileupload/member";
 			// 시스템의 실제 경로

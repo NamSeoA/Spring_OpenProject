@@ -20,7 +20,7 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration // Test for Controller
 @ContextConfiguration({ "file:src/main/webapp/WEB-INF/spring/root-context.xml",
-		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
+						"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 @Log4j
 public class MemberListControllerTest {
 
@@ -37,11 +37,32 @@ public class MemberListControllerTest {
 	@Test
 	public void testMemberList() throws Exception {
 
-		log.info( mockMvc.perform(MockMvcRequestBuilders.get("/member/list"))
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/member/reg"))
 				.andReturn()
 				.getModelAndView()
 				.getModelMap());
-		
+	}
+	
+	//MemberRegController test
+	@Test
+	public void testReg() throws Exception {
+		log.info(mockMvc.perform(
+				MockMvcRequestBuilders.post("/member/reg")
+				.param("userid", "aia.aiaseoa@gmail.com")
+				.param("pw", "0000")
+				.param("username", "tester1234"))
+				.andReturn().getModelAndView().getModelMap());
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
