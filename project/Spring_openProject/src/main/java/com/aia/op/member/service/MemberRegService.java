@@ -1,6 +1,7 @@
 package com.aia.op.member.service;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,10 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.aia.op.member.dao.MemberDao;
 import com.aia.op.member.domain.Member;
 import com.aia.op.member.domain.MemberRegRequest;
+import net.coobird.thumbnailator.Thumbnailator;
 
 @Service
 public class MemberRegService {
@@ -25,6 +28,7 @@ public class MemberRegService {
 	private MailSenderService mailSenderService;
 	
 	// 파일을 업로드, 데이터베이스 저장
+	@Transactional
 	public int memberReg(
 			MemberRegRequest regRequest,
 			HttpServletRequest request
@@ -48,7 +52,18 @@ public class MemberRegService {
 			
 			/* 파일 저장 */
 			try {
-				regRequest.getUserPhoto().transferTo(newFile);
+				//regRequest.getUserPhoto().transferTo(newFile);
+
+				FileOutputStream thumnail = new FileOutputStream(new File(saveDirPath, "s_"+newFileName));
+
+				// 썸네일 저장 100X100
+				Thumbnailator.createThumbnail(
+						regRequest.getUserPhoto().getInputStream(), 
+						thumnail, 
+						50, 50);
+
+				thumnail.close();
+				
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -56,17 +71,22 @@ public class MemberRegService {
 			}
 		}
 	
-		Member member = regRequest.toMember(); 
-		member.setMemberphoto(newFileName);
-		
+		   Member member = regRequest.toMember();
+		   
+	    if(newFileName != null) {
+			member.setMemberphoto(newFileName);
+		}
 		try {
 			// 데이터 베이스 입력
 			dao = template.getMapper(MemberDao.class);
-			// 삽입
+			
+			// member_count -> memberCount + 1 update
+			dao.memberCountUpdate();
+			
+			// 회원 DB insert
 			result = dao.insertMember(member);
 			
 			// 메일발송 : 인증 처리를 하는 페이지 /op/member/verify?id=40&code=난수
-			
 			int mailsendCnt = mailSenderService.send(member);
 			System.out.println("메일 발송 처리 횟수 : " + mailsendCnt);
 			

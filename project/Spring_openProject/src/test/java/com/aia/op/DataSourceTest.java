@@ -3,6 +3,7 @@ package com.aia.op;
 import static org.junit.Assert.fail;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
@@ -18,7 +19,7 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")  
 @Log4j
 public class DataSourceTest {
 
@@ -43,7 +44,7 @@ public class DataSourceTest {
 	public void testConnection() {
 
 		try (Connection con = dataSource.getConnection();) {
-			log.info(con);
+			//log.info(con);
 			System.out.println("!!! Connection : " + con);
 		} catch (Exception e) {
 			fail(e.getMessage());

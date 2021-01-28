@@ -74,8 +74,8 @@ td, th {
 						<td>${member.idx}</td>
 						<td>${member.memberid}</td>
 						<td>${member.membername}</td>
-						<td><img height="30" alt="프로필 사진"
-							src="<c:url value="/fileupload/member/${member.memberphoto}"/>">
+						<td><img alt="프로필 사진"
+							src="<c:url value="/fileupload/member/s_${member.memberphoto}"/>">
 						</td>
 						<td><fmt:formatDate value="${member.regdate}"
 								pattern="yyyy.MM.dd." /></td>
@@ -87,17 +87,38 @@ td, th {
 				</c:forEach>
 			</table>
 
-			<div class="paging">
-				<c:if test="${listView.totalMemberCount>0}">
-					<c:forEach begin="1" end="${listView.totalPageCount}" var="num">
-					[ <a href="<c:url value="/member/list"/>?p=${num}&searchType=${param.searchType}&keyword=${param.keyword}" 
-							class="${listView.pageNumber eq num ? 'nowpage' : ''}">${num}</a>] 
-			</c:forEach>
-				</c:if>
 			</div>
 
+
+			<nav aria-label="Page navigation example">
+				<ul class="pagination">
+				
+				<c:if test="${listView.totalMemberCount>0}">
+					<c:forEach begin="1" end="${listView.totalPageCount}" var="num">
+							<li class="page-item ${listView.pageNumber eq num ? 'active' : ''}"><a class="page-link " href="<c:url value="/member/list"/>?p=${num}&searchType=${param.searchType}&keyword=${param.keyword}">${num}</a></li>				
+				</c:forEach>
+				</c:if>
+					
+					
+				</ul>
+			</nav>
+
+
+
+
+<%-- 			<div class="paging">
+				<c:if test="${listView.totalMemberCount>0}">
+					<c:forEach begin="1" end="${listView.totalPageCount}" var="num">
+				[ <a
+							href="<c:url value="/member/list"/>?p=${num}&searchType=${param.searchType}&keyword=${param.keyword}"
+							class="${listView.pageNumber eq num ? 'nowpage' : ''}">${num}</a> ] 				
+				</c:forEach>
+				</c:if>
+			</div> --%>
+
+
 		</div>
-	</div>
+	</main>
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	

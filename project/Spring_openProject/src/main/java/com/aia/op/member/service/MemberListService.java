@@ -12,15 +12,16 @@ import com.aia.op.member.dao.MemberDao;
 import com.aia.op.member.domain.Member;
 import com.aia.op.member.domain.MemberListView;
 import com.aia.op.member.domain.SearchParam;
+import lombok.extern.log4j.Log4j;
 
 @Service
+@Log4j
 public class MemberListService {
 
 	private MemberDao dao;
 	
 	@Autowired
 	private SqlSessionTemplate template;
-	
 	
 	public MemberListView getListView(SearchParam param) { // pageNumber = param.getP()
 		
@@ -42,8 +43,8 @@ public class MemberListService {
 		listMap.put("count", cntPerPage);
 		listMap.put("searchParam", param);
 		
-		//pageNumber는 매개변수로 받아옴
-		//int totalMemberCount = dao.selectTotalCount();
+		// pageNumber는 매개변수로 받아옴
+		// int totalMemberCount = dao.selectTotalCount();
 		int totalMemberCount = dao.selectSearchMemberCount(listMap);
 		System.out.println("memberTotalCount : " + totalMemberCount);
 		
@@ -59,4 +60,24 @@ public class MemberListService {
 	 
 		return listView;
   }
+	
+	public List<Member> getListView() {
+
+		List<Member> list = null;
+
+		try {
+			// MemberDao 구현체 생성
+			dao = template.getMapper(MemberDao.class);
+
+			list = dao.selectAllMemberList();
+			//System.out.println(list);
+			log.info(list);
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
 }
