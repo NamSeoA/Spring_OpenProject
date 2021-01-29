@@ -76,7 +76,7 @@ public class MemberRegService {
 	    if(newFileName != null) {
 			member.setMemberphoto(newFileName);
 		}
-		try {
+		/* try { */
 			// 데이터 베이스 입력
 			dao = template.getMapper(MemberDao.class);
 			
@@ -90,14 +90,15 @@ public class MemberRegService {
 			int mailsendCnt = mailSenderService.send(member);
 			System.out.println("메일 발송 처리 횟수 : " + mailsendCnt);
 			
-		} catch (Exception e) {
+		/*} catch (Exception e) {
 			e.printStackTrace();
 		
 			// 현재 저장한 파일이 있다면 ?? -> 삭제
 			if(newFile != null && newFile.exists()) {
 				newFile.delete();
 			}
-    	}
+    	}*/
+			
 		return result;
 	}
 }

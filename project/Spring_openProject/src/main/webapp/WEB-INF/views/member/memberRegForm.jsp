@@ -115,7 +115,7 @@ $(document).ready(function(){
 	});
 		
 	
-	$('#regForm').submit(function(){
+/* 	$('#regForm').submit(function(){
 		
 		var chk = $('#idcheck').is(':checked');
 		
@@ -124,7 +124,7 @@ $(document).ready(function(){
 			return false;
 		}
 	});
-	
+	 */
 	
 	$('#userid').focusout(function(){
 		
