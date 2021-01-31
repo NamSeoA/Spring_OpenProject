@@ -17,6 +17,10 @@ import com.google.gson.Gson;
 
 public class EchoHandler extends TextWebSocketHandler {
 
+	// Logger : EchoHandler.class 현재의 클래스를 대상으로 log를 수집하겠다는 의미
+	// 로그를 수집할 클래스(EchoHandler) 클래스에 변수를 선언
+	// private : 외부에서 로그를 가로채지 못하게 하기 위함
+	// static final :  로그 내용이 바뀌지 않으므로
 	private static final Logger logger = LoggerFactory.getLogger(EchoHandler.class);
 	
 	// List에도 담을 수 있고 Map에도 담을 수 있다
@@ -39,21 +43,21 @@ public class EchoHandler extends TextWebSocketHandler {
 		System.out.println("체팅 참여자 : " + chatMember);
 	}
 
-	// client가 메세지를 보내면  handleTextMessage 메서드 호출 (textmessage JSON형식)
+	// client가 메세지를 보내면  handleTextMessage 메서드 호출 (textmessage -  JSON형식)
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 
 		String chatMember = (String) session.getAttributes().get("user");
 		
 		logger.info("{}로 부터 {}를 전달 받았습니다.", chatMember, message.getPayload());
-		Gson gson = new Gson(); // client에서 json형식으로 보냄
-		Message msg = gson.fromJson(message.getPayload(), Message.class); // Json -> JAVA object로
+		Gson gson = new Gson(); // client에서 Json형식으로 보냄
+		Message msg = gson.fromJson(message.getPayload(), Message.class); // Json -> JAVA object
 		
 		System.out.println(msg);
 		
 
 		// 전달 메시지
-		TextMessage sendMsg = new TextMessage(gson.toJson(msg)); //메세지 객체 -> Json 형식으로
+		TextMessage sendMsg = new TextMessage(gson.toJson(msg)); // 메세지 객체 -> Json 형식으로
 		
 		for (WebSocketSession webSocketSession : sessionList) {
 			// 상대방에게 메시지 전달
