@@ -1,6 +1,9 @@
 package com.aia.op.member.domain;
 
-public class LoginInfo {
+import java.io.Serializable;
+
+// 저장하고자 하는 데이터는 serializer 
+public class LoginInfo implements Serializable{
 
 	private String memberid;
 	private String membername;
@@ -30,9 +33,6 @@ public class LoginInfo {
 	public String toString() {
 		return "LoginInfo [memberid=" + memberid + ", membername=" + membername + ", memberphoto=" + memberphoto + "]";
 	}
-	
-	
-	
 	
 	
 	

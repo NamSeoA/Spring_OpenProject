@@ -19,6 +19,9 @@ public class MemberLoginService {
 	@Autowired
 	private SqlSessionTemplate template;
 	
+	@Autowired
+	private RedisService redisService;
+	
 	//로그인 유무 판단(결과를 줌)
 	public boolean login(
 			HttpServletRequest request,
@@ -42,6 +45,7 @@ public class MemberLoginService {
 			// 현재 세션의 속성에 LoginInfo 인스턴스를 저장
 			// session 있으면 가져오고 없으면 새로 만들기
 			request.getSession().setAttribute("loginInfo", member.toLoginInfo());  
+			redisService.setUserInformation(member.toLoginInfo(), request.getSession());
 			loginCheck = true; // 로그인
 			
 			// 로그인 후 (value가 on으로 들어감)
